@@ -1,0 +1,23 @@
+-- 0024: the device Loc/Bin field (ticket 08, spec decision 5).
+--
+-- One optional free-text column, devices.loc_bin: where the device sits in
+-- the shop ("Shelf 3 / Bin B" style, the tech's own words — no list, no
+-- format rule). A single COMBINED field by decision: loc and bin are one
+-- label the shop reads at a glance, never two columns to fill.
+--
+-- Current state, NOT history: the device moves around the shop, so a change
+-- overwrites the column and writes no timeline event (the devices domain
+-- deliberately leaves it out of the edit route's device.edited payload —
+-- contrast every other device field, whose old → new values are the story).
+-- Nullable: an unset location is "not recorded yet"; the device row renders
+-- it as "—", never a silent blank.
+--
+-- Reversible by construction: one additive ALTER with no index, constraint,
+-- or backfill attached. The exact reverse is:
+--
+--   ALTER TABLE devices DROP COLUMN loc_bin;
+--
+-- (Standard portable SQL — ADR-0001 — supported by SQLite >= 3.35 and
+-- Postgres alike; nothing else has to be unwound.)
+
+ALTER TABLE devices ADD COLUMN loc_bin TEXT;

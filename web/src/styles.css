@@ -1,0 +1,673 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #1f2430;
+  background: #f7f8fa;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  background: #1f2430;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+}
+
+.app-header h1 {
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem;
+}
+
+.app-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+
+.nav-link {
+  color: #c8cdd8;
+  text-decoration: none;
+  padding: 0.25rem 0;
+}
+
+.nav-link:hover,
+.nav-link-active {
+  color: #fff;
+}
+
+.nav-link-login {
+  margin-left: auto;
+  border: 1px solid #c8cdd8;
+  border-radius: 4px;
+  padding: 0.25rem 0.6rem;
+}
+
+.app-main {
+  flex: 1;
+  padding: 1.5rem;
+  max-width: 60rem;
+}
+
+.placeholder {
+  color: #5a6270;
+}
+
+/* Forms, buttons, tables, and status messages (login, redemption, users). */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 24rem;
+  margin: 1rem 0;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-weight: 600;
+}
+
+.form input,
+.form select,
+button {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #b9bfcc;
+  border-radius: 4px;
+  font: inherit;
+  background: #fff;
+}
+
+button {
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+button:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+/* Destructive actions (SKU deletion, admin danger zone): red border and text
+   so the button reads as a warning before it is pressed. */
+button.danger {
+  border-color: #a02b2b;
+  color: #a02b2b;
+}
+
+.status-ok {
+  color: #1a6b3c;
+}
+
+.status-error {
+  color: #a02b2b;
+}
+
+.table {
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 0.4rem 0.75rem 0.4rem 0;
+  border-bottom: 1px solid #dfe3ea;
+}
+
+.table-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* The batch list's Opening-note column (ticket 01): one line, full text on
+   hover via the cell's title attribute. */
+.opening-note-cell {
+  max-width: 18rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav-user {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-user-email {
+  color: #c8cdd8;
+}
+
+.nav-logout {
+  border: 1px solid #c8cdd8;
+  border-radius: 4px;
+  padding: 0.2rem 0.6rem;
+  background: transparent;
+  color: #c8cdd8;
+}
+
+/* Batches (ticket 04) — appended, additive only. */
+.form textarea {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #b9bfcc;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.status-warn {
+  color: #8a5a00;
+}
+
+.status-control {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.timeline {
+  margin-top: 1rem;
+  padding-left: 1.25rem;
+}
+
+.timeline li {
+  margin-bottom: 0.4rem;
+}
+
+.timeline-time {
+  color: #5a6270;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Audits (ticket 10) — appended, additive only. */
+.audit-banner {
+  margin: 0 0 1rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d9a21b;
+  border-left: 4px solid #d9a21b;
+  background: #fff7e0;
+  border-radius: 4px;
+  color: #6b4c00;
+}
+
+/* Batch parts (ticket 05) — appended, additive only. */
+.device-parts {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #dfe3ea;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.device-parts h3,
+.device-parts h4 {
+  margin: 0.25rem 0;
+}
+
+.demand-list {
+  margin: 0.75rem 0;
+}
+
+.demand-list ul {
+  margin: 0.25rem 0;
+  padding-left: 1.25rem;
+}
+
+.part-removed td {
+  color: #5a6270;
+  background: #f7f8fa;
+}
+
+/* PO labels (ticket 08) — print-sized to Dymo stock via CSS variables. */
+.labels-page .label-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25in;
+  margin-top: 1rem;
+}
+
+.label-card {
+  box-sizing: border-box;
+  width: var(--label-width, 2.3125in);
+  height: var(--label-height, 4in);
+  padding: 0.15in;
+  border: 1px dashed #b9bfcc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  page-break-after: always;
+  break-after: page;
+}
+
+.label-barcode {
+  max-width: 100%;
+  height: auto;
+}
+
+.label-sku {
+  margin: 0.35rem 0 0;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.label-name {
+  margin: 0.15rem 0 0;
+  font-size: 0.9rem;
+}
+
+.label-received-mark {
+  margin: 0.35rem 0 0;
+  color: #1a6b3c;
+  font-size: 0.8rem;
+}
+
+/* Browser fallback print path (ticket 19): print ONLY the label cards — one
+   per page, sized to the configured stock (@page is injected by LabelSheet
+   from the label-size settings), no app chrome, and no trailing blank page
+   (break-after is skipped on the last card). */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .app-header,
+  .no-print {
+    display: none !important;
+  }
+
+  .app-main {
+    max-width: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+  }
+
+  .labels-page .label-sheet,
+  .labels-page .label-sheet * {
+    visibility: visible;
+  }
+
+  .labels-page .label-sheet {
+    gap: 0;
+    margin: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .label-card {
+    border: none;
+    margin: 0;
+  }
+
+  .label-card:not(:last-child) {
+    page-break-after: always;
+    break-after: page;
+  }
+}
+
+/* DYMO print controls (ticket 19) — printer picker, primary DYMO print button,
+   and status line on both label surfaces. */
+.dymo-print-controls {
+  width: 100%;
+}
+
+.dymo-print-controls select {
+  min-width: 14rem;
+}
+
+/* Search (ticket 11) — the header box and the results page. */
+.nav-search {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.nav-search input {
+  min-width: 16rem;
+  border-color: #c8cdd8;
+}
+
+.nav-search button {
+  background: transparent;
+  color: #c8cdd8;
+  border: 1px solid #c8cdd8;
+}
+
+.nav-search button:hover {
+  color: #fff;
+}
+
+.search-summary {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.search-user-filter select {
+  margin-left: 0.25rem;
+  padding: 0.25rem 0.4rem;
+}
+
+
+/* Admin panel (ticket 18) - the owner's separate surface. */
+.admin-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+}
+
+.admin-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #c8cdd8;
+  border-radius: 6px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.admin-card:hover {
+  border-color: #1d4ed8;
+}
+
+.admin-danger {
+  border: 2px solid #b91c1c;
+  border-radius: 6px;
+  padding: 0 1rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-danger h3 {
+  color: #b91c1c;
+}
+
+.admin-write-mode {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.admin-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.admin-button {
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid #1d4ed8;
+  border-radius: 6px;
+  color: #1d4ed8;
+  text-decoration: none;
+}
+
+.admin-button:hover {
+  background: #1d4ed8;
+  color: #fff;
+}
+
+/* SKU picker (ticket 20) — appended, additive only. The results list is
+   positioned under the input; the input's wrapper is inline-block so the
+   list sizes to the control, and nothing here truncates: SKU names wrap
+   (no text-overflow, no nowrap), because a clipped "(Grade B)" suffix is
+   exactly the failure this picker exists to prevent. */
+.sku-picker {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 28rem;
+}
+
+.sku-picker input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sku-picker-list {
+  position: absolute;
+  z-index: 10;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 0.15rem 0 0;
+  padding: 0;
+  list-style: none;
+  max-height: 20rem;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #b9bfcc;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(31, 36, 48, 0.12);
+}
+
+.sku-picker-option {
+  display: block;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+  border-bottom: 1px solid #dfe3ea;
+}
+
+.sku-picker-option:last-child {
+  border-bottom: none;
+}
+
+.sku-picker-option-active {
+  background: #eef2ff;
+}
+
+/* A zero-Available SKU is dimmed but still selectable — the Need to Order
+   path starts from picking it. */
+.sku-picker-option-empty {
+  opacity: 0.55;
+}
+
+/* The other kind's matches, shown as dimmed non-selectable hints: the kind
+   filter is the domain rule, and the hint says where that SKU belongs. */
+.sku-picker-option-hint {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.sku-picker-name {
+  display: block;
+  /* wrap, never ellipsize — full SKU names including any "(Grade B)" suffix */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-weight: 600;
+}
+
+.sku-picker-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  margin-top: 0.1rem;
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: #5a6270;
+}
+
+.sku-picker-badge {
+  border: 1px solid #b9bfcc;
+  border-radius: 999px;
+  padding: 0 0.45rem;
+  font-size: 0.75rem;
+  color: #5a6270;
+}
+
+.sku-picker-stale {
+  color: #8a5a00;
+}
+
+/* The chosen SKU, displayed in full beneath the closed input. */
+.sku-picker-selected {
+  display: block;
+  margin-top: 0.25rem;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #dfe3ea;
+  border-radius: 4px;
+  background: #f7f8fa;
+  font-size: 0.9rem;
+}
+
+.sku-picker-selected .sku-picker-name {
+  font-weight: 600;
+}
+
+.sku-picker-empty {
+  padding: 0.4rem 0.6rem;
+  color: #5a6270;
+}
+
+/* Ticket 24: the inline create offer and its expanded form. */
+.sku-picker-create-row {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  text-align: left;
+}
+
+.sku-picker-create {
+  display: grid;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  padding: 0.5rem;
+  border: 1px solid #dfe3ea;
+  border-radius: 4px;
+  background: #f7f8fa;
+}
+
+.sku-picker-create label {
+  display: grid;
+  gap: 0.15rem;
+  font-size: 0.8rem;
+  color: #5a6270;
+}
+
+/* Sandbox guardrail (sandbox spec decisions 3 + 10) — appended, additive
+   only. Fixed at the top of every page, above modals, so it is never
+   mistaken for page content; body.sandbox (set by SandboxBanner) pushes
+   page content below the bar. Height = 1rem line + 2×0.4rem padding. */
+.sandbox-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  box-sizing: border-box; /* the 1.8rem height includes the padding */
+  height: 1.8rem;
+  line-height: 1;
+  background: #b3261e;
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 0.75rem;
+}
+
+body.sandbox {
+  padding-top: 1.8rem;
+}
+
+/* Sandbox admin panel (sandbox ticket 04): the line under the admin header
+   naming the panel's target database, shown on every admin page. */
+.admin-sandbox-note {
+  margin: 0 1rem;
+}
+
+/* ---- Modal (ticket 30 follow-up): one overlay + panel, shared by every
+   page-level form (parts panel, edit device, add device). ---- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 36, 48, 0.45);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem;
+  overflow-y: auto;
+  z-index: 50;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(31, 36, 48, 0.25);
+  width: 100%;
+  max-width: 640px;
+}
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e3e6ee;
+}
+
+.modal-head h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.modal-close {
+  border: 0;
+  background: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #6b7280;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 1rem;
+}
+
+/* PO approval panel (po-approval-ux): while a PO is Awaiting approval the
+   manager's decision is the page's primary action, so the approve form is a
+   large bordered panel at the TOP of the detail page, above the paperwork
+   sections — not one h3 among many. */
+.approval-panel {
+  margin: 1rem 0 1.5rem;
+  padding: 1rem 1.25rem 1.25rem;
+  border: 2px solid #1a6b3c;
+  border-left: 6px solid #1a6b3c;
+  border-radius: 6px;
+  background: #eef7f1;
+}
+
+.approval-panel h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.35rem;
+}
+
+.approval-panel p {
+  margin: 0 0 0.25rem;
+}
+
+.approval-panel .form {
+  max-width: 28rem;
+  margin-bottom: 0;
+}
+
+.approval-panel button {
+  font-size: 1.05rem;
+  padding: 0.55rem 1.25rem;
+}
